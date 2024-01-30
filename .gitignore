@@ -1,0 +1,4 @@
+.buildozer
+.mypy_cache
+.ropeproject
+bin

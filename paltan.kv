@@ -1,0 +1,67 @@
+#:kivy 1.0.9
+
+<MainScreen>:
+	start: button_start
+	quitter: button_quit
+
+	canvas.before:
+        Color:
+            rgb: 0.35, 0.35, 0.35
+        Rectangle:
+            # self here refers to the widget i.e FloatLayout
+            pos: self.pos
+            size: self.size
+
+	Label:
+		font_size: 70
+		size_hint: (0.2,0.5)
+		pos_hint:{'center_x':.5, 'center_y':.7}
+		text: "Paltan"
+	Button:
+		font_size: 50
+		id: button_start
+		pos_hint:{'center_x':.5, 'center_y':.5}
+		size_hint: (0.7,0.2)
+		text: "Start"
+		background_color: 0,1,0
+	Button:
+		font_size: 50
+		id: button_quit
+		pos_hint:{'center_x':.5, 'center_y':.2}
+		size_hint: (0.7,0.2)
+		background_color: 1,0,0
+		text: "Quitter"
+
+<Counter>:
+	canvas.before:
+		Color:
+			rgb: root.r,root.g,root.b
+		Rectangle:
+			pos: self.pos
+			size: self.size
+	Label:
+		color: self.parent.fgcolor
+		font_size: 90
+		size_hint: (0.5,0.5)
+		pos_hint:{'center_x':.5, 'center_y':.5}
+		text: root.counter
+
+<Worddisplay>:
+	canvas.before:
+		Color:
+			rgb: 0.3, 0.3, 1
+		Rectangle:
+			pos: self.pos
+			size: self.size
+		Color:
+			rgb: 1, 0, 0
+		Rectangle:
+			pos: self.size[0]-10+self.pos[0], self.pos[1]
+			size: 10, root.progress *self.size[1]/1000
+	Label:
+		color: 0, 0, 0
+		font_size: 50
+		size_hint: (1,1)
+		pos_hint:{'center_x':.5, 'center_y':.5}
+		text: root.word
+		
