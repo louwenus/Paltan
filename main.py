@@ -3,6 +3,7 @@ from kivy.app import App
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
+from kivy.uix.behaviors import ButtonBehavior
 from kivy.clock import Clock
 # from kivy.uix.textinput import TextInput
 # from kivy.uix.widget import Widget
@@ -37,7 +38,7 @@ class MainScreen(FloatLayout):
         exit(0)
 
 
-class Counter(FloatLayout):
+class Counter(ButtonBehavior, FloatLayout):
     counter = StringProperty("0")
     fgcolor = ColorProperty((1, 0.2, 0.2))
     r = NumericProperty(0)
@@ -45,6 +46,7 @@ class Counter(FloatLayout):
     b = NumericProperty(0)
     val = 0
 
+    
     def reinit(self, fgcolor, bgcolor, value):
         self.fgcolor = fgcolor
         self.r, self.g, self.b = bgcolor
@@ -55,6 +57,11 @@ class Counter(FloatLayout):
         self.val -= 1
         self.counter = str(self.val)
         return self.val
+    
+    def terminate(self, *_):
+        print("terminate called")
+        self.val = 1
+        self.counter = "1"
 
 
 class Worddisplay(FloatLayout):
@@ -85,6 +92,8 @@ class PaltanApp(App):
             "counter": Counter(),
             "wo_di": Worddisplay()
         }
+        self.screens["counter"].bind(
+                on_press=self.screens["counter"].terminate)
         self.main_layout.add_widget(self.screens["main"])
         return self.main_layout
 
